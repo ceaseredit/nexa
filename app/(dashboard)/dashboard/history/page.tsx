@@ -29,14 +29,12 @@ function Page() {
   const user = useSelector((state: RootState) => state.user?.user ?? null);
   const symbol = user?.customCurrencySymbol || user?.currencySymbol || "$";
 
-    const { visible } = useBalanceVisibility();
-    const mask = (n: number) => (visible ? fmt(n) : "••••••");
+  const { visible } = useBalanceVisibility();
+  const mask = (n: number) => (visible ? fmt(n) : "••••••");
 
   const userHistory = Array.isArray(user?.history) ? user.history : [];
-  const { history, loading } = useHistory(
-    user?.id ?? "",
-    user?.hasHistory ?? false,
-  );  const [page, setPage] = useState(1);
+  const { history, loading } = useHistory(user?.id ?? "");
+  const [page, setPage] = useState(1);
 
   const totalPages = Math.max(1, Math.ceil(history.length / PAGE_SIZE));
   const paginated = history.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -51,7 +49,6 @@ function Page() {
       </p>
 
       <div className="flex flex-col max-w-2xl p-5 bg-white shadow-xl mt-7 rounded-3xl">
-
         {history.length === 0 ? (
           <div className="flex items-center justify-center py-16">
             <p className="text-gray-400 text-[14px]">No transactions found.</p>
