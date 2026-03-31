@@ -19,7 +19,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { COLORS } from "@/constants/Theme";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "@/store/slices/userAuthSlice";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import Link from "next/link";
@@ -30,13 +30,14 @@ import { GoArrowLeft } from "react-icons/go";
 import { MdFingerprint, MdLock, MdOutlineShield } from "react-icons/md";
 import { VscRobot } from "react-icons/vsc";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { RootState } from "@/store";
 
 type Step = "credentials" | "otp";
 
 function Page() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error } = useSelector((state: RootState) => state?.user);
 
   const [step, setStep] = useState<Step>("credentials");
   const [showPassword, setShowPassword] = useState(false);
@@ -77,7 +78,6 @@ function Page() {
     } else {
       router.push("/");
     }
-      
   };
 
   return (
@@ -259,7 +259,11 @@ function Page() {
                   <p className="text-gray-500 flex flex-row gap-2">
                     Don't have an account?{" "}
                     <div
-                onClick={()=>alert("Please visit any of our branches to create an account")}
+                      onClick={() =>
+                        alert(
+                          "Please visit any of our branches to create an account",
+                        )
+                      }
                       style={{ color: COLORS.primaryBlue }}
                       className="font-semibold"
                     >
