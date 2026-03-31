@@ -28,6 +28,7 @@ import {
 } from "react-icons/md";
 import { VscRobot } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/store";
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 
@@ -35,8 +36,6 @@ interface FormErrors {
   username?: string;
   password?: string;
 }
-
-
 
 function validateForm(form: {
   username: string;
@@ -59,7 +58,7 @@ function validateForm(form: {
   // Password
   if (!form.password) {
     errors.password = "Password is required.";
-  } 
+  }
 
   return errors;
 }
@@ -105,12 +104,10 @@ function SignUp() {
   // Redirect on success
   useEffect(() => {
     if (admin) {
-    //   alert("Admin created successfully");
+      //   alert("Admin created successfully");
       router.push("/admin/signin");
     }
   }, [admin, router]);
-
-
 
   return (
     <div>
