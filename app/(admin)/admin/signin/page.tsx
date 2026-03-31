@@ -17,6 +17,7 @@ import { GoArrowLeft } from "react-icons/go";
 import { MdFingerprint, MdLock, MdOutlineShield } from "react-icons/md";
 import { VscRobot } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { RootState } from "@/store";
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 
@@ -25,7 +26,10 @@ interface FormErrors {
   password?: string;
 }
 
-function validateForm(form: { username: string; password: string }): FormErrors {
+function validateForm(form: {
+  username: string;
+  password: string;
+}): FormErrors {
   const errors: FormErrors = {};
 
   const trimmedUsername = form.username.trim();
