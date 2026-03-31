@@ -14,20 +14,14 @@ import { AlertTriangleIcon } from "lucide-react";
 import { useBalanceVisibility } from "@/context/BalanceVisibilityContext";
 // Fallback static history shown when user has no history
 
-
-
-
-
 function Page() {
   const { visible } = useBalanceVisibility();
   const mask = (n: number) => (visible ? fmt(n) : "••••••");
   const user = useSelector((state: RootState) => state.user?.user ?? null);
-  
+
   const userHistory = Array.isArray(user?.history) ? user.history : [];
-  const { history, loading } = useHistory(
-    user?.id ?? "",
-    user?.hasHistory ?? false,
-  );  const symbol = user?.customCurrencySymbol || user?.currencySymbol || "$";
+  const { history, loading } = useHistory(user?.id ?? "");
+  const symbol = user?.customCurrencySymbol || user?.currencySymbol || "$";
   const currencyCode = user?.currency || "USD";
 
   // ── Balances ──
@@ -63,8 +57,6 @@ function Page() {
   };
 
   const displayHistory = history.slice(0, 5);
-
-
 
   const getGreeting = () => {
     const hour = new Date().getHours();
