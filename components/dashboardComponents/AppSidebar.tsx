@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Sidebar,
   SidebarContent,
@@ -17,8 +17,16 @@ import { AiOutlineBank } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PiSignOutLight } from "react-icons/pi";
-import { IoSettingsOutline, IoTrendingUpSharp, IoWalletOutline } from "react-icons/io5";
-import { LuArrowRightLeft, LuCreditCard, LuLayoutDashboard } from "react-icons/lu";
+import {
+  IoSettingsOutline,
+  IoTrendingUpSharp,
+  IoWalletOutline,
+} from "react-icons/io5";
+import {
+  LuArrowRightLeft,
+  LuCreditCard,
+  LuLayoutDashboard,
+} from "react-icons/lu";
 import { MdChevronRight } from "react-icons/md";
 import { RiArrowUpDownLine, RiCustomerService2Line } from "react-icons/ri";
 import Link from "next/link";
@@ -33,7 +41,11 @@ const navItems = [
   { href: "/dashboard/transfer", icon: RiArrowUpDownLine, label: "Transfer" },
   { href: "/dashboard/history", icon: LuArrowRightLeft, label: "History" },
   { href: "/dashboard/cards", icon: LuCreditCard, label: "Cards" },
-  { href: "/dashboard/investments", icon: IoTrendingUpSharp, label: "Investments" },
+  {
+    href: "/dashboard/investments",
+    icon: IoTrendingUpSharp,
+    label: "Investments",
+  },
   { href: "/dashboard/settings", icon: IoSettingsOutline, label: "Settings" },
   // {
   //   href: "/dashboard/support",
@@ -46,38 +58,32 @@ export function AppSidebar() {
   const { toggleSidebar } = useSidebar();
   const pathname = usePathname();
 
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const router = useRouter();
   const user = useSelector((state: RootState) => state.user?.user ?? null);
 
+  console.log(user);
 
-console.log(user)
+  const handleLogout = () => {
+    dispatch(userLogout());
 
-    const handleLogout = () => {
-      dispatch(userLogout());
-  
-      // optional: clear persisted redux (if using redux-persist)
-      localStorage.removeItem("persist:root");
-  
-      router.push("/signin");
-    };
+    // optional: clear persisted redux (if using redux-persist)
+    localStorage.removeItem("persist:root");
 
-  
-  
-    const getInitials = (name?: string) => {
-      if (!name) return "NA";
+    router.push("/signin");
+  };
 
-      const parts = name.trim().split(" ");
+  const getInitials = (name?: string) => {
+    if (!name) return "NA";
 
-      if (parts.length === 1) {
-        return parts[0].slice(0, 2).toUpperCase();
-      }
+    const parts = name.trim().split(" ");
 
-      return (
-        parts[0][0].toUpperCase() + parts[parts.length - 1][0].toUpperCase()
-      );
-    };
+    if (parts.length === 1) {
+      return parts[0].slice(0, 2).toUpperCase();
+    }
+
+    return parts[0][0].toUpperCase() + parts[parts.length - 1][0].toUpperCase();
+  };
   return (
     <Sidebar
       collapsible="icon"

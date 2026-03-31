@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Sidebar,
   SidebarContent,
@@ -17,8 +17,17 @@ import { AiOutlineBank } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { PiSignOutLight } from "react-icons/pi";
-import { IoSettingsOutline, IoTrendingUpSharp, IoWalletOutline } from "react-icons/io5";
-import { LuArrowRightLeft, LuCreditCard,LuUser, LuLayoutDashboard } from "react-icons/lu";
+import {
+  IoSettingsOutline,
+  IoTrendingUpSharp,
+  IoWalletOutline,
+} from "react-icons/io5";
+import {
+  LuArrowRightLeft,
+  LuCreditCard,
+  LuUser,
+  LuLayoutDashboard,
+} from "react-icons/lu";
 import { MdChevronRight } from "react-icons/md";
 import { RiArrowUpDownLine, RiCustomerService2Line } from "react-icons/ri";
 import Link from "next/link";
@@ -29,20 +38,13 @@ import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
 import { adminLogout } from "@/store/slices/adminAuthSlice";
 
-
 export function AdminSidebar() {
   const { toggleSidebar } = useSidebar();
   const pathname = usePathname();
 
-
-
-
-
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const router = useRouter();
 
-
-  
   const { loading, error, admin } = useSelector(
     (state: RootState) => state.admin,
   );
@@ -71,8 +73,6 @@ export function AdminSidebar() {
       : []),
   ];
 
-
-
   const handleLogout = () => {
     dispatch(adminLogout());
 
@@ -81,8 +81,6 @@ export function AdminSidebar() {
 
     router.push("/admin/signin");
   };
-  
-
 
   const getInitials = (name?: string) => {
     if (!name) return "NA";
@@ -95,8 +93,6 @@ export function AdminSidebar() {
 
     return parts[0][0].toUpperCase() + parts[parts.length - 1][0].toUpperCase();
   };
-
-
 
   return (
     <Sidebar
@@ -181,7 +177,6 @@ export function AdminSidebar() {
         <SidebarMenu className="flex flex-col gap-5">
           <SidebarMenuItem className="flex flex-row gap-5 items-center group-data-[collapsible=icon]:justify-center">
             <Avatar size="lg" className="shrink-0">
-
               <AvatarFallback> {getInitials(admin?.username)}</AvatarFallback>
               <AvatarBadge className="bg-green-600" />
             </Avatar>

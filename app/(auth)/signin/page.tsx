@@ -35,7 +35,7 @@ import { RootState } from "@/store";
 type Step = "credentials" | "otp";
 
 function Page() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const router = useRouter();
   const { loading, error } = useSelector((state: RootState) => state?.user);
 
