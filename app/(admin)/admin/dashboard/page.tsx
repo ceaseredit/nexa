@@ -78,7 +78,8 @@ function Page() {
       .single();
     const newVal = !(current as any)?.openAdminSignUp;
 
-    const { error } = await supabase
+    // Cast supabase to any to bypass strict type checking
+    const { error } = await (supabase as any)
       .from("config")
       .update({ openAdminSignUp: newVal })
       .eq("id", 1);
