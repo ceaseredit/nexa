@@ -141,7 +141,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
         .from("admins")
         .select("username")
         .order("username", { ascending: true });
-      setAdminsList(data?.map((a) => a.username) ?? []);
+      setAdminsList(data?.map((a: any) => a.username) ?? []);
     };
     fetchAdmins();
   }, []);
