@@ -4,13 +4,13 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { createClient } from "@supabase/supabase-js";
 import { FiUsers, FiUserCheck, FiUserX, FiTrendingUp } from "react-icons/fi";
 import { BsArrowUpRight, BsSend } from "react-icons/bs";
 import { IoWalletOutline } from "react-icons/io5";
 import { IoTrendingUpSharp } from "react-icons/io5";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { COLORS as C } from "@/constants/Theme";
+import { supabase } from "@/lib/supabase";
 
 const fmt = (n: number) =>
   n.toLocaleString("en-US", {
@@ -39,21 +39,9 @@ function Page() {
   const [configToggling, setConfigToggling] = useState(false);
 
   // Lazy‑initialize the Supabase client only on the client side
-  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null);
-
-  useEffect(() => {
-    // This effect runs only after mount (i.e., on the client)
-    if (typeof window !== "undefined") {
-      supabaseRef.current = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      );
-    }
-  }, []);
 
   // Fetch config only after supabase is available
   useEffect(() => {
-    const supabase = supabaseRef.current;
     if (!supabase) return;
 
     const fetchConfig = async () => {
@@ -65,10 +53,9 @@ function Page() {
       setConfigLoading(false);
     };
     fetchConfig();
-  }, [supabaseRef.current]);
+  }, [supabase]);
 
   const handleSignUpToggle = async () => {
-    const supabase = supabaseRef.current;
     if (!supabase) return;
 
     setConfigToggling(true);
@@ -89,7 +76,6 @@ function Page() {
   };
 
   useEffect(() => {
-    const supabase = supabaseRef.current;
     if (!admin || !supabase) return;
 
     const fetchData = async () => {
@@ -106,7 +92,7 @@ function Page() {
       setLoading(false);
     };
     fetchData();
-  }, [admin, supabaseRef.current]);
+  }, [admin, supabase]);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
