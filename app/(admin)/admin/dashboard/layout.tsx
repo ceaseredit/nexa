@@ -1,4 +1,5 @@
-'use client'
+"use client";
+export const dynamic = "force-dynamic";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/dashboardComponents/AppSidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,15 +16,10 @@ import { AdminSidebar } from "@/components/dashboardComponents/AdminSideBar";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
-
 export default function Layout({ children }: { children: React.ReactNode }) {
-
-  
   const { loading, error, admin } = useSelector(
     (state: RootState) => state.admin,
   );
-
-
 
   const getInitials = (name?: string) => {
     if (!name) return "NA";
@@ -48,9 +44,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <SidebarTrigger />
               {/* Add whatever you want here */}
               <div className="flex flex-row items-center gap-7">
-
                 <Avatar className="shrink-0 size-9">
-            
                   <AvatarFallback>
                     {getInitials(admin?.username)}
                   </AvatarFallback>
