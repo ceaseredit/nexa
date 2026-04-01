@@ -1,7 +1,7 @@
 "use client";
 import { COLORS } from "@/constants/Theme";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { createClient } from "@supabase/supabase-js";
@@ -11,11 +11,6 @@ import { IoWalletOutline } from "react-icons/io5";
 import { IoTrendingUpSharp } from "react-icons/io5";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { COLORS as C } from "@/constants/Theme";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
 
 const fmt = (n: number) =>
   n.toLocaleString("en-US", {
@@ -43,32 +38,46 @@ function Page() {
   const [configLoading, setConfigLoading] = useState(true);
   const [configToggling, setConfigToggling] = useState(false);
 
+  // Lazy‑initialize the Supabase client only on the client side
+  const supabaseRef = useRef<ReturnType<typeof createClient> | null>(null);
 
   useEffect(() => {
+    // This effect runs only after mount (i.e., on the client)
+    if (typeof window !== "undefined") {
+      supabaseRef.current = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      );
+    }
+  }, []);
+
+  // Fetch config only after supabase is available
+  useEffect(() => {
+    const supabase = supabaseRef.current;
+    if (!supabase) return;
+
     const fetchConfig = async () => {
       const { data } = await supabase
         .from("config")
         .select("openAdminSignUp")
         .single();
-      setSignUpOpen(data?.openAdminSignUp ?? false);
+      setSignUpOpen((data as any)?.openAdminSignUp ?? false);
       setConfigLoading(false);
     };
     fetchConfig();
-  }, []);
+  }, [supabaseRef.current]);
 
   const handleSignUpToggle = async () => {
-    setConfigToggling(true);
+    const supabase = supabaseRef.current;
+    if (!supabase) return;
 
-    // Read current value fresh from DB to avoid stale closure
+    setConfigToggling(true);
     const { data: current } = await supabase
       .from("config")
       .select("openAdminSignUp")
       .single();
+    const newVal = !(current as any)?.openAdminSignUp;
 
-    const newVal = !current?.openAdminSignUp;
-
-
-    console.log("Toggling admin sign-up. Current value:", current?.openAdminSignUp, "New value:", newVal);
     const { error } = await supabase
       .from("config")
       .update({ openAdminSignUp: newVal })
@@ -78,27 +87,25 @@ function Page() {
     setConfigToggling(false);
   };
 
-
-
-
   useEffect(() => {
-    if (!admin) return;
+    const supabase = supabaseRef.current;
+    if (!admin || !supabase) return;
+
     const fetchData = async () => {
       setLoading(true);
       let query = supabase
         .from("users")
         .select("*")
         .order("created_at", { ascending: false });
-
       if (admin.role === "subAdmin") {
         query = query.eq("admin", admin.username);
-      } 
+      }
       const { data } = await query;
       setAccounts(data || []);
       setLoading(false);
     };
     fetchData();
-  }, [admin]);
+  }, [admin, supabaseRef.current]);
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -151,9 +158,7 @@ function Page() {
       gradient: "from-[#801CF6] via-[#7E00D6] to-[#5815A7]",
       isMoney: false,
     },
-
   ];
-
 
   return (
     <div className="bg-[#F9FAFC] p-4 lg:px-14 md:px-10 md:pt-10 lg:pt-10 min-h-full">
