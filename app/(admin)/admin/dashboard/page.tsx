@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 import { COLORS } from "@/constants/Theme";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
