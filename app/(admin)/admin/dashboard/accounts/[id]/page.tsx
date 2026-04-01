@@ -2,20 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 import AccountForm from "@/components/dashboardComponents/AccountForm";
 
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 export default function EditAccountPage() {
   const { id } = useParams();
   const [data, setData] = useState<any>(null);
 
-console.log(id)
+  console.log(id);
 
   const fetchAccount = async () => {
     const { data } = await supabase
@@ -26,7 +21,7 @@ console.log(id)
 
     setData(data);
   };
-    
+
   useEffect(() => {
     fetchAccount();
   }, []);

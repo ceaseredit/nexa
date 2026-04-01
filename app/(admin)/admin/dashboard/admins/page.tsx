@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import {
@@ -17,10 +16,7 @@ import {
 import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi";
 import { COLORS } from "@/constants/Theme";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 interface AdminRow {
   id: string;

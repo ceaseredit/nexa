@@ -2,18 +2,13 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 import { Input } from "@/components/ui/input";
 import { FiEdit2, FiTrash2, FiSlash, FiSearch } from "react-icons/fi";
 import { COLORS } from "@/constants/Theme";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { div } from "framer-motion/client";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 const fmtDate = (dateStr: string) => {
   if (!dateStr) return "—";
@@ -38,8 +33,7 @@ export default function AccountsPage() {
   // Inside the component, add:
   const admin = useSelector((state: RootState) => state.admin?.admin ?? null);
 
-    
-    console.log(admin)
+  console.log(admin);
   useEffect(() => {
     if (!admin) return;
 
@@ -126,20 +120,16 @@ export default function AccountsPage() {
       <div className="mt-5 overflow-hidden bg-white shadow-xl rounded-3xl">
         {/* Header */}
         <div className="hidden md:grid grid-cols-[2fr_1.5fr_1.5fr_1fr_120px] gap-4 px-6 py-3 border-b bg-[#F9FAFC]">
-          {[
-            "Account name",
-            "Routing number",
-            "Date created",
-            "Actions",
-     
-          ].map((h) => (
-            <span
-              key={h}
-              className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide"
-            >
-              {h}
-            </span>
-          ))}
+          {["Account name", "Routing number", "Date created", "Actions"].map(
+            (h) => (
+              <span
+                key={h}
+                className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide"
+              >
+                {h}
+              </span>
+            ),
+          )}
         </div>
 
         {loading ? (
@@ -164,7 +154,6 @@ export default function AccountsPage() {
               <div key={acc.id}>
                 {/* Desktop row */}
                 <div className="hidden md:grid grid-cols-[2fr_1.5fr_1.5fr_1fr_120px] gap-4 px-6 py-4 items-center hover:bg-[#F9FAFC] transition-colors">
-              
                   {/* Name */}
                   <div className="flex items-center gap-3">
                     <div className="shrink-0">
@@ -225,32 +214,35 @@ export default function AccountsPage() {
                       <FiEdit2 size={14} />
                     </button>
 
-                            {/* Block / Unblock */}
-                            {admin?.role !== "subAdmin" && (
-                                <button
-                                    onClick={() => handleBlock(acc)}
-                                    disabled={blocking === acc.id}
-                                    className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors disabled:opacity-50
-                        ${acc.blocked
-                                            ? "bg-green-50 text-green-500 hover:bg-green-100"
-                                            : "bg-yellow-50 text-yellow-500 hover:bg-yellow-100"
-                                        }`}
-                                    title={acc.blocked ? "Unblock" : "Block"}
-                                >
-                                    <FiSlash size={14} />
-                                </button>)}
+                    {/* Block / Unblock */}
+                    {admin?.role !== "subAdmin" && (
+                      <button
+                        onClick={() => handleBlock(acc)}
+                        disabled={blocking === acc.id}
+                        className={`flex items-center justify-center w-8 h-8 rounded-lg transition-colors disabled:opacity-50
+                        ${
+                          acc.blocked
+                            ? "bg-green-50 text-green-500 hover:bg-green-100"
+                            : "bg-yellow-50 text-yellow-500 hover:bg-yellow-100"
+                        }`}
+                        title={acc.blocked ? "Unblock" : "Block"}
+                      >
+                        <FiSlash size={14} />
+                      </button>
+                    )}
 
-                            {/* Delete */}
-                            
-                            {admin?.role !== "subAdmin" && (
-                                <button
-                                    onClick={() => setConfirmDelete(acc.id)}
-                                    disabled={deleting === acc.id}
-                                    className="flex items-center justify-center w-8 h-8 text-red-400 transition-colors rounded-lg bg-red-50 hover:bg-red-100 disabled:opacity-50"
-                                    title="Delete"
-                                >
-                                    <FiTrash2 size={14} />
-                                </button>)}
+                    {/* Delete */}
+
+                    {admin?.role !== "subAdmin" && (
+                      <button
+                        onClick={() => setConfirmDelete(acc.id)}
+                        disabled={deleting === acc.id}
+                        className="flex items-center justify-center w-8 h-8 text-red-400 transition-colors rounded-lg bg-red-50 hover:bg-red-100 disabled:opacity-50"
+                        title="Delete"
+                      >
+                        <FiTrash2 size={14} />
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -291,24 +283,24 @@ export default function AccountsPage() {
                         className="flex items-center justify-center w-8 h-8 text-blue-500 rounded-lg bg-blue-50"
                       >
                         <FiEdit2 size={14} />
-                                </button>
-                                {admin?.role !== "subAdmin" && (
-                                    
-                                    <button
-                                        onClick={() => handleBlock(acc)}
-                                        className={`flex items-center justify-center w-8 h-8 rounded-lg ${acc.blocked ? "bg-green-50 text-green-500" : "bg-yellow-50 text-yellow-500"}`}
-                                    >
-                                        <FiSlash size={14} />
-                                    </button>
-                                )}
-                                    
-                                {admin?.role !== "subAdmin" && (
-                                    <button
-                                        onClick={() => setConfirmDelete(acc.id)}
-                                        className="flex items-center justify-center w-8 h-8 text-red-400 rounded-lg bg-red-50"
-                                    >
-                                        <FiTrash2 size={14} />
-                                    </button>)}
+                      </button>
+                      {admin?.role !== "subAdmin" && (
+                        <button
+                          onClick={() => handleBlock(acc)}
+                          className={`flex items-center justify-center w-8 h-8 rounded-lg ${acc.blocked ? "bg-green-50 text-green-500" : "bg-yellow-50 text-yellow-500"}`}
+                        >
+                          <FiSlash size={14} />
+                        </button>
+                      )}
+
+                      {admin?.role !== "subAdmin" && (
+                        <button
+                          onClick={() => setConfirmDelete(acc.id)}
+                          className="flex items-center justify-center w-8 h-8 text-red-400 rounded-lg bg-red-50"
+                        >
+                          <FiTrash2 size={14} />
+                        </button>
+                      )}
                     </div>
                   </div>
                   <div className="flex gap-4 text-[12px] text-gray-400">

@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createClient } from "@supabase/supabase-js";
 import { FiPlus, FiTrash2, FiCamera } from "react-icons/fi";
 import { Field, FieldLabel } from "@/components/ui/field";
 import {
@@ -32,10 +31,7 @@ import {
 } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 const CURRENCY_SYMBOLS: Record<string, string> = {
   USD: "$",
@@ -134,12 +130,11 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
   const [successMsg, setSuccessMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [savingsFocused, setSavingsFocused] = useState(false);
-   const [checkingFocused, setCheckingFocused] = useState(false);
-    const [adminsList, setAdminsList] = useState<string[]>([]);
+  const [checkingFocused, setCheckingFocused] = useState(false);
+  const [adminsList, setAdminsList] = useState<string[]>([]);
 
   const isEdit = mode === "edit";
 
-    
   useEffect(() => {
     const fetchAdmins = async () => {
       const { data } = await supabase
@@ -150,7 +145,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
     };
     fetchAdmins();
   }, []);
-    
+
   useEffect(() => {
     if (isEdit) return;
 
@@ -555,7 +550,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
     } finally {
       setSubmitting(false);
     }
-  };;;
+  };
 
   return (
     <div className="bg-[#F9FAFC] p-4 lg:px-14 md:px-10 md:pt-10 lg:pt-10 h-full">

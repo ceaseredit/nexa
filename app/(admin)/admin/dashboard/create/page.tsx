@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createClient } from "@supabase/supabase-js";
 import { FiPlus, FiTrash2, FiCamera } from "react-icons/fi";
 import { Field, FieldLabel } from "@/components/ui/field";
 import {
@@ -33,11 +32,7 @@ import {
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import AccountForm from "@/components/dashboardComponents/AccountForm";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
-
+import { supabase } from "@/lib/supabase";
 type TransactionType = "credit" | "debit" | "pending";
 
 interface HistoryRow {
@@ -233,8 +228,7 @@ function Page() {
         numberOfShares: parseInt(rest.numberOfShares) || 0,
         amount: parseFloat(rest.amount) || 0,
       }));
-    
-    
+
     try {
       // 1. Upload avatar to Supabase Storage
       let avatarUrl = "";
@@ -286,16 +280,12 @@ function Page() {
       const userId = userData.id;
 
       setSuccessMsg("Account created successfully!");
-
-
-
     } catch (err: any) {
       setErrorMsg(err?.message ?? "Something went wrong.");
     } finally {
       setSubmitting(false);
     }
-  };;
-
+  };
 
   const activeSymbol =
     form.currency === "custom"
@@ -303,10 +293,7 @@ function Page() {
       : (CURRENCY_SYMBOLS[form.currency] ?? form.currency);
   return (
     <div className="bg-[#F9FAFC] p-4 lg:px-14 md:px-10 md:pt-10 lg:pt-10 h-full">
-
       <AccountForm mode="create" />
-
-
     </div>
   );
 }

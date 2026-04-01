@@ -6,14 +6,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth, userLogout } from "@/store/slices/userAuthSlice";
-import { createClient } from "@supabase/supabase-js";
 import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 function AuthVerifier() {
   const dispatch = useDispatch<any>();
@@ -39,7 +34,7 @@ function AuthVerifier() {
           table: "users",
           filter: `id=eq.${user.id}`,
         },
-        (payload) => {
+        (payload: any) => {
           console.log("Realtime UPDATE:", payload.new);
           if (payload.new?.blocked === true) {
             dispatch(userLogout());
@@ -47,7 +42,7 @@ function AuthVerifier() {
           }
         },
       )
-      .subscribe((status) => {
+      .subscribe((status: any) => {
         console.log("Realtime status:", status);
       });
 

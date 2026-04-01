@@ -17,12 +17,8 @@ import { checkAuth } from "@/store/slices/userAuthSlice";
 import React, { useState } from "react";
 import { BsSend } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-);
+import { supabase } from "@/lib/supabase";
 
 const fmt = (n: number) =>
   n.toLocaleString("en-US", {
@@ -240,7 +236,7 @@ function Page() {
         {/* ACCOUNT NUMBER */}
         <div className="flex flex-col gap-2">
           <p className="text-[14px] font-semibold text-gray-500">
-            ACCOUNT NUMBER 
+            ACCOUNT NUMBER
           </p>
           <Input
             value={form.accountNumber}
