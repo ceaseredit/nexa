@@ -12,7 +12,7 @@ const navItems = [
   { label: "Hero", id: "hero" }, // tracking only
   { label: "Performance", id: "performance" },
   { label: "Why Us", id: "whyus" },
- { label: "Testimonials", id: "testimonials" },
+  { label: "Testimonials", id: "testimonials" },
   { label: "About", id: "about" },
 ];
 
@@ -100,7 +100,7 @@ function NavBar() {
               style={{ color: COLORS.primaryBlack }}
               className="text-xl font-bold md:text-2xl"
             >
-              Nexa<span style={{ color: COLORS.primaryBlue }}>Bank</span>
+              Silver<span style={{ color: COLORS.primaryBlue }}>Capital</span>
             </h1>
           </div>
         </Link>

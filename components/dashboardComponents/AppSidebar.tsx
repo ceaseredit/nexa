@@ -104,7 +104,7 @@ export function AppSidebar() {
                 style={{ color: COLORS.primaryBlack }}
                 className="text-xl font-bold group-data-[collapsible=icon]:hidden group-data-[collapsible=icon]:size-6"
               >
-                Nexa<span style={{ color: COLORS.primaryBlue }}>Bank</span>
+                Silver<span style={{ color: COLORS.primaryBlue }}>Capital</span>
               </h1>
             </div>
             <IoMdClose

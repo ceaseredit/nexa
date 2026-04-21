@@ -60,9 +60,9 @@ function Testimonials() {
             </div>
 
             <p className="text-white/70 font-medium text-[16px] leading-7">
-              "NexaBank fundamentally changed how I manage business finances.
-              The instant transfers and zero fees saved us over $12,000 last
-              year alone."
+              "SilverCapital fundamentally changed how I manage business
+              finances. The instant transfers and zero fees saved us over
+              $12,000 last year alone."
             </p>
 
             <div className="flex flex-row items-center gap-3">
@@ -91,8 +91,9 @@ function Testimonials() {
             </div>
 
             <p className="text-white/70 font-medium text-[16px] leading-7">
-              "I've used every neobank out there. NexaBank is the only one that
-              actually feels like it was built for people who understand money."
+              "I've used every neobank out there. SilverCapital is the only one
+              that actually feels like it was built for people who understand
+              money."
             </p>
 
             <div className="flex flex-row items-center gap-3">

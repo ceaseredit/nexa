@@ -104,7 +104,7 @@ function SignIn() {
                   <AiOutlineBank size={20} color="white" />
                 </div>
                 <h1 className="text-xl font-bold text-white">
-                  Nexa<span>Bank</span>
+                  Silver<span>Capital</span>
                 </h1>
               </div>
             </Link>
@@ -161,7 +161,7 @@ function SignIn() {
           </div>
           <div>
             <p className="text-[12px] text-white/30">
-              © {new Date().getFullYear()} NexaBank
+              © {new Date().getFullYear()} SilverCapitalBank
             </p>
           </div>
         </div>
@@ -185,7 +185,7 @@ function SignIn() {
                     <AiOutlineBank size={20} color="white" />
                   </div>
                   <h1 className="text-lg font-bold">
-                    Nexa<span>Bank</span>
+                    Silver<span>Capital</span>
                   </h1>
                 </div>
               </Link>

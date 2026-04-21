@@ -92,7 +92,7 @@ function Page() {
                   <AiOutlineBank size={20} color="white" />
                 </div>
                 <h1 className="text-xl font-bold text-white">
-                  Nexa<span>Bank</span>
+                  Silver<span>Capital</span>
                 </h1>
               </div>
             </Link>
@@ -148,7 +148,7 @@ function Page() {
             </div>
           </div>
           <p className="text-[12px] text-white/30">
-            © {new Date().getFullYear()} NexaBank, inc. Member FDIC
+            © {new Date().getFullYear()} SilverCapital, inc. Member FDIC
           </p>
         </div>
 
@@ -172,7 +172,7 @@ function Page() {
                     <AiOutlineBank size={20} color="white" />
                   </div>
                   <h1 className="text-lg font-bold">
-                    Nexa<span>Bank</span>
+                    Silver<span>Capital</span>
                   </h1>
                 </div>
               </Link>
@@ -190,7 +190,7 @@ function Page() {
                   Welcome back
                 </h1>
                 <p className="text-[13px] font-medium text-gray-400">
-                  Sign in to your NexaBank account
+                  Sign in to your SilverCapital account
                 </p>
               </div>
 

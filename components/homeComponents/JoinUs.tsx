@@ -1,7 +1,7 @@
-'use client'
-import Link from 'next/link';
-import React from 'react'
-import { GoArrowRight, GoLock } from 'react-icons/go';
+"use client";
+import Link from "next/link";
+import React from "react";
+import { GoArrowRight, GoLock } from "react-icons/go";
 
 function JoinUs() {
   return (
@@ -11,7 +11,7 @@ function JoinUs() {
           className="font-semibold text-[13px] tracking-widest text-white/60"
           data-aos="fade-up"
         >
-          JOIN NEXABANK
+          JOIN SILVERCAPITAL
         </p>
 
         <h1
@@ -61,4 +61,4 @@ function JoinUs() {
   );
 }
 
-export default JoinUs
+export default JoinUs;

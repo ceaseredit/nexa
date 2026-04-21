@@ -65,7 +65,7 @@ function WhyUs() {
             className="font-semibold text-[13px] tracking-widest"
             style={{ color: COLORS.primaryBlue }}
           >
-            WHY NEXABANK
+            WHY SILVERCAPITAL
           </p>
           <div>
             <h1

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { RootState } from "@/store";
 import React from "react";
 import { FaCcVisa } from "react-icons/fa6";
@@ -21,7 +21,7 @@ function Page() {
         <div className="flex flex-col min-h-[220px] md:w-[400px] rounded-2xl border-[0.2px] border-white/20 p-5 bg-linear-to-br from-[#6C7787] to-[#4C515F]">
           <div className="flex flex-row items-center justify-between ">
             <h2 className="font-semibold text-white/50 text-[12px]">
-              NexaBank Premium
+              SilverCapital Premium
             </h2>
             <SiMastercard size={25} className="text-white/50" />
           </div>
@@ -50,7 +50,7 @@ function Page() {
         <div className="flex flex-col min-h-[220px]  md:w-[400px] rounded-2xl border-[0.2px] border-white/20 p-5 bg-linear-to-br from-[#155CFA] via-[#1D44D8] to-[#302E8B] ">
           <div className="flex flex-row items-center justify-between ">
             <h2 className="font-semibold text-white/50 text-[12px]">
-              NexaBank Premium
+              SilverCapital Premium
             </h2>
             <FaCcVisa size={25} className="text-white/50" />
           </div>

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { COLORS } from "@/constants/Theme";
 import Link from "next/link";
 import React from "react";
@@ -45,19 +45,19 @@ function Hero() {
             Redefined.
           </h1>
           <p className="mt-10 text-lg text-gray-500" data-aos="fade-up">
-            A smarter way to save, spend, and grow your wealth. NexaBank
+            A smarter way to save, spend, and grow your wealth. SilverCapital
             combines institutional-grade technology with a consumer-first
             experience — and zero fees.
           </p>
         </div>
         <div className="flex flex-col gap-5 md:flex-row md:items-center ">
           <button
-     
             className="px-5 py-3.5 font-semibold text-white transition-transform duration-300 rounded-xl drop-shadow-xl/20 hover:scale-105 flex flex-row gap-3 items-center justify-center "
             style={{ backgroundColor: COLORS.primaryBlack }}
             data-aos="fade-right"
-            onClick={()=>alert("Please visit any of our branches to create an account")}
-
+            onClick={() =>
+              alert("Please visit any of our branches to create an account")
+            }
           >
             <h2 className="">Open Free Account</h2> <GoArrowRight size={20} />
           </button>
@@ -73,7 +73,7 @@ function Hero() {
 
         <div
           data-aos="fade-up"
-           className="flex flex-row items-center gap-2 mt-4 md:mt-6"
+          className="flex flex-row items-center gap-2 mt-4 md:mt-6"
         >
           <AvatarGroup className="grayscale">
             <Avatar>
@@ -166,7 +166,7 @@ function Hero() {
           <div className="rounded-2xl border-[0.2px] border-white/20 p-5 bg-white/9 mt-4">
             <div className="flex flex-row items-center justify-between">
               <h2 className="font-semibold text-white/50 text-[12px]">
-                NexaBank Premium
+                SilverCapital Premium
               </h2>
               <SiMastercard size={25} className="text-white/50" />
             </div>

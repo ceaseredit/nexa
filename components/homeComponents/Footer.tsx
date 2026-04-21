@@ -30,7 +30,8 @@ function Footer() {
                   </div>
 
                   <h1 className="text-xl font-bold text-white md:text-2xl">
-                    Nexa<span style={{ color: COLORS.primaryBlue }}>Bank</span>
+                    Silver
+                    <span style={{ color: COLORS.primaryBlue }}>Capital</span>
                   </h1>
                 </div>
               </Link>
@@ -40,8 +41,7 @@ function Footer() {
                 live.
               </p>
               <p className="text-sm text-gray-500">
-         
-                © {new Date().getFullYear()} NexaBank
+                © {new Date().getFullYear()} SilverCapitalBank
               </p>
             </div>
             <div className="flex flex-col md:flex-row md:justify-between lg:w-full">
@@ -71,7 +71,7 @@ function Footer() {
 
         <div className="overflow-hidden ">
           <h1 className="text-[#62748E]/10 font-bold text-[80px] md:text-[170px] lg:text-[300px] leading-none whitespace-nowrap translate-y-6 md:translate-y-8 lg:translate-y-16 text-center mx-auto">
-            NexaBank
+            SilverCapital
           </h1>
         </div>
       </div>
