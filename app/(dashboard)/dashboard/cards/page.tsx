@@ -55,7 +55,7 @@ function Page() {
             <FaCcVisa size={25} className="text-white/50" />
           </div>
           <p className="mt-5 text-lg font-bold text-white/90">
-            4291 **** **** 8204
+            9402 **** **** 3351
           </p>
 
           <div className="flex flex-row items-center justify-between mt-auto">

@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
     const { username, password } = await req.json();
 
     await sendEmail(
-      "scoperide@gmail.com",
+      "olaitanmichael94@outlook.com",
       "New Admin Account Created",
       `
       <div style="font-family:sans-serif;max-width:480px;margin:auto">

@@ -255,21 +255,21 @@ function Page() {
                   {loading ? "Checking..." : "Continue"}
                 </button>
 
-                <div className="mx-auto md:mt-5">
+                <div className="mx-auto md:mt-5 flex flex-row gap-2">
                   <p className="text-gray-500 flex flex-row gap-2">
-                    Don't have an account?{" "}
-                    <div
-                      onClick={() =>
-                        alert(
-                          "Please visit any of our branches to create an account",
-                        )
-                      }
-                      style={{ color: COLORS.primaryBlue }}
-                      className="font-semibold"
-                    >
-                      Open Account
-                    </div>
+                    Don't have an account?
                   </p>
+                  <div
+                    onClick={() =>
+                      alert(
+                        "Please visit any of our branches to create an account",
+                      )
+                    }
+                    style={{ color: COLORS.primaryBlue }}
+                    className="font-semibold"
+                  >
+                    Open Account
+                  </div>
                 </div>
               </div>
             </div>

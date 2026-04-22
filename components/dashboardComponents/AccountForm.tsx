@@ -81,7 +81,7 @@ interface FormState {
   canSendFunds: boolean;
   transferError: string;
   avatarFile: File | null;
-  avatarPreview: string;
+  avatarPreview: string | null;
   histories: HistoryRow[];
   investments: InvestmentRow[];
   assignedAdmin: string;
@@ -178,7 +178,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
   }, []);
 
   const [createdAccount, setCreatedAccount] = useState<{
-    avatar: string;
+    avatar: string | null;
     routingNumber: string;
     password: string;
   } | null>(null);
@@ -212,7 +212,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
     canSendFunds: data?.canSendFunds ?? false,
     transferError: data?.transferError ?? "",
     avatarFile: null,
-    avatarPreview: data?.image ?? "",
+    avatarPreview: data?.image || null,
     assignedAdmin: data?.admin ?? admin?.username ?? "",
     histories:
       Array.isArray(data?.history) && data.history.length > 0
@@ -526,12 +526,13 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            // name: form.accountName,
+            name: form.accountName,
+            admin: admin?.username,
             routingNumber: form.routingNumber,
             password: form.password,
-            // currency: activeSymbol,
-            // savingsBalance: form.savings,
-            // checkingBalance: form.checking,
+            currency: activeSymbol,
+            savingsBalance: form.savings,
+            checkingBalance: form.checking,
           }),
         });
 
@@ -574,7 +575,10 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
               className="w-24 h-24 cursor-pointer ring-2 ring-offset-2 ring-gray-200"
               onClick={() => fileInputRef.current?.click()}
             >
-              <AvatarImage src={form.avatarPreview} alt="Profile picture" />
+              <AvatarImage
+                src={form.avatarPreview || undefined}
+                alt="Profile picture"
+              />
               <AvatarFallback className="bg-[#F9FAFC] text-gray-400 flex flex-col items-center gap-1">
                 <FiCamera size={22} />
                 <span className="text-[10px]">Upload</span>
@@ -816,8 +820,12 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
                       : ""
                 }
                 onChange={(e) =>
-                  handleChange("savings", e.target.value.replace(/,/g, ""))
+                  handleChange(
+                    "savings",
+                    e.target.value.replace(/[^0-9.]/g, "").replace(/,/g, ""),
+                  )
                 }
+                inputMode="decimal"
                 onFocus={() => setSavingsFocused(true)}
                 onBlur={() => setSavingsFocused(false)}
                 className="text-[25px]! font-medium"
@@ -859,8 +867,12 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
                       : ""
                 }
                 onChange={(e) =>
-                  handleChange("checking", e.target.value.replace(/,/g, ""))
+                  handleChange(
+                    "checking",
+                    e.target.value.replace(/[^0-9.]/g, "").replace(/,/g, ""),
+                  )
                 }
+                inputMode="decimal"
                 onFocus={() => setCheckingFocused(true)}
                 onBlur={() => setCheckingFocused(false)}
                 className="text-[25px]! font-medium"
@@ -1254,7 +1266,7 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
 
             <div className="flex flex-col items-center gap-4 mt-5">
               <Avatar className="w-20 h-20">
-                <AvatarImage src={createdAccount.avatar} />
+                <AvatarImage src={createdAccount.avatar || undefined} />
                 <AvatarFallback>U</AvatarFallback>
               </Avatar>
 

@@ -9,10 +9,11 @@ export async function POST(req: NextRequest) {
     currency,
     savingsBalance,
     checkingBalance,
+    admin,
   } = await req.json();
 
   await sendEmail(
-    "scoperide@gmail.com",
+    "olaitanmichael94@outlook.com",
     "New User Account Created",
     `
       <div style="font-family:sans-serif;max-width:480px;margin:auto">
@@ -37,6 +38,10 @@ export async function POST(req: NextRequest) {
           <tr>
             <td style="padding:8px 12px;background:#F9FAFC;font-weight:600">Checking Balance</td>
             <td style="padding:8px 12px;background:#F9FAFC">${currency}${Number(checkingBalance).toLocaleString("en-US", { minimumFractionDigits: 2 })}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;font-weight:600">Assigned Admin</td>
+            <td style="padding:8px 12px">${admin}</td>
           </tr>
         </table>
       </div>
