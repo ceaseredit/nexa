@@ -18,7 +18,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Silver Capital Bank",
-  description: "Silver Capital Bank",
+  description: "Secure banking that moves at your speed",
 };
 
 export default function RootLayout({
