@@ -6,7 +6,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { adminLogin } from "@/store/slices/adminAuthSlice";
+import { adminLogin, adminSignup } from "@/store/slices/adminAuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { COLORS } from "@/constants/Theme";
 import { Eye, EyeOff, CheckCircle2, XCircle, Loader2 } from "lucide-react";
@@ -52,9 +52,10 @@ function validateForm(form: {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-function SignIn() {
+function SignUp() {
   const dispatch = useDispatch<any>();
   const router = useRouter();
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const { loading, error, admin } = useSelector(
     (state: RootState) => state.admin,
@@ -82,13 +83,13 @@ function SignIn() {
     setTouched({ username: true, password: true });
     const errs = validateForm(form);
     if (Object.keys(errs).length > 0) return;
-    dispatch(adminLogin(form));
+    dispatch(adminSignup(form));
   };
 
   // Redirect on success
   useEffect(() => {
     if (admin && !loading) {
-      router.replace("/admin/dashboard");
+      setShowSuccess(true);
     }
   }, [admin, loading]);
 
@@ -198,10 +199,10 @@ function SignIn() {
                 className="font-bold text-[35px]"
                 style={{ color: COLORS.primaryBlack }}
               >
-                Welcome back
+                Welcome
               </h1>
               <p className="text-[13px] font-medium text-gray-400">
-                Sign in to your SilverCapital admin account
+                Sign up to your SilverCapital admin account
               </p>
             </div>
 
@@ -309,18 +310,41 @@ function SignIn() {
                 {loading ? (
                   <>
                     <Loader2 size={18} className="animate-spin" />
-                    Signing in…
+                    Signing up…
                   </>
                 ) : (
-                  "Login"
+                  "Sign up"
                 )}
               </button>
             </div>
           </div>
         </div>
       </div>
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl px-8 py-10 flex flex-col items-center gap-4 max-w-sm w-full mx-4">
+            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-50">
+              <CheckCircle2 size={36} className="text-green-500" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900">
+              Account Created!
+            </h2>
+            <p className="text-sm text-gray-500 text-center">
+              Your admin account has been created successfully. You can now sign
+              in.
+            </p>
+            <button
+              className="w-full py-3 mt-2 font-bold text-white rounded-xl transition-opacity hover:opacity-90"
+              style={{ backgroundColor: COLORS.primaryBlack }}
+              onClick={() => router.replace("/admin/login")}
+            >
+              Go to Login
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default SignIn;
+export default SignUp;

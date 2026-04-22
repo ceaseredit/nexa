@@ -55,10 +55,9 @@ export const adminSignup = createAsyncThunk(
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: cleanedUsername,
-          password: cleanedPassword,
         }),
       });
-      
+
       return data;
     } catch (err: any) {
       return rejectWithValue(err.message);
@@ -72,8 +71,6 @@ export const adminSignup = createAsyncThunk(
 export const adminLogin = createAsyncThunk(
   "admin/login",
   async ({ username, password }: any, { rejectWithValue }) => {
-
-
     try {
       const cleanedUsername = username.trim();
       const cleanedPassword = password.trim();
@@ -110,7 +107,6 @@ const adminAuthSlice = createSlice({
     adminLogout: (state) => {
       state.admin = null;
 
-      
       if (typeof window !== "undefined") {
         localStorage.removeItem("admin");
         Cookies.remove("admin"); // ✅ important
@@ -130,7 +126,11 @@ const adminAuthSlice = createSlice({
       })
       .addCase(adminSignup.rejected, (state, action: any) => {
         state.loading = false;
-        state.error = action.payload;
+        // Humanise Postgres unique-constraint violation
+        const raw: string = action.payload ?? "";
+        state.error = raw.includes("unique constraint")
+          ? "That username is already taken. Please choose a different one."
+          : raw;
       })
 
       // LOGIN
@@ -146,13 +146,12 @@ const adminAuthSlice = createSlice({
         if (typeof window !== "undefined") {
           localStorage.setItem("admin", JSON.stringify(action.payload));
 
-
           Cookies.set("admin", JSON.stringify(action.payload), {
             // expires: 1, // 1 day
           });
         }
       })
-      
+
       .addCase(adminLogin.rejected, (state, action: any) => {
         state.loading = false;
         state.error = action.payload;

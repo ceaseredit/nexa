@@ -526,13 +526,13 @@ export default function AccountForm({ mode, initialData }: AccountFormProps) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: form.accountName,
+            // name: form.accountName,
             admin: admin?.username,
             routingNumber: form.routingNumber,
-            password: form.password,
-            currency: activeSymbol,
-            savingsBalance: form.savings,
-            checkingBalance: form.checking,
+            // password: form.password,
+            // currency: activeSymbol,
+            // savingsBalance: form.savings,
+            // checkingBalance: form.checking,
           }),
         });
 
