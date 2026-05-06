@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "@/store";
 import Providers from "./providers";
 import { BalanceVisibilityProvider } from "@/context/BalanceVisibilityContext";
+import CrispChat from "@/components/CrispChat";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
           className={`${inter.variable}  antialiased`}
           suppressHydrationWarning
         >
+          <CrispChat />
           <Providers>{children}</Providers>
         </body>
       </BalanceVisibilityProvider>
