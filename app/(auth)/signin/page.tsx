@@ -316,7 +316,7 @@ function Page() {
                     setOtp(val);
                     setOtpError("");
                   }}
-                  onComplete={handleOtpSubmit}
+                  // onComplete={handleOtpSubmit}
                 >
                   <InputOTPGroup>
                     <InputOTPSlot index={0} className="w-10 h-16" />
